@@ -15,7 +15,7 @@ target/
 *application.properties
 
 ### IntelliJ IDEA ###
-.idea
+beady-backend/.idea
 *.iws
 *.iml
 *.ipr
