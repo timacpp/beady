@@ -13,5 +13,5 @@ public class ReduceItemDTO {
 
 	@NotNull
 	@Min(0)
-	private Long reduceBy;
+	private Integer reduceBy;
 }

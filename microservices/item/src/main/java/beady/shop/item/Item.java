@@ -16,6 +16,17 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 public class Item {
+	public static final int MIN_RATING = 1;
+
+	public static final int MAX_RATING = 5;
+
+	public static final int RATING_SCALE = 2;
+
+	public static final int PRICE_SCALE = 2;
+
+	public static final int RATING_PRECISION = 3;
+
+	public static final int PRICE_PRECISION = 5;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,18 +37,16 @@ public class Item {
 	@NotBlank
 	private String name;
 
-	private String description;
-
 	@NotNull
 	@Min(0)
-	@Column(precision = 5, scale = 2)
+	@Column(precision = PRICE_PRECISION, scale = PRICE_SCALE)
 	private BigDecimal price;
 
 	@NotNull
 	@Min(0)
-	private Long quantity;
+	private Integer quantity;
 
-	@Range(min = 1, max = 5)
-	@Column(precision = 3, scale = 2)
-	private BigDecimal averageRating;
+	@Range(min = MIN_RATING, max = MAX_RATING)
+	@Column(precision = RATING_PRECISION, scale = RATING_SCALE)
+	private BigDecimal rating;
 }
