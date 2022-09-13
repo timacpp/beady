@@ -24,7 +24,7 @@ public class ItemController {
 	}
 
 	@PostMapping("/reduce-quantity")
-	public ResponseEntity<?> reduceQuantity(@Valid ReduceItemDTO dto) {
+	public ResponseEntity<?> reduceQuantity(@RequestBody @Valid ReduceItemDTO dto) {
 		try {
 			itemService.reduceQuantity(dto);
 			return ResponseEntity.ok().build();
@@ -34,7 +34,7 @@ public class ItemController {
 	}
 
 	@PostMapping("/update-rating")
-	public ResponseEntity<?> updateRating(@Valid UpdateRatingDTO dto) {
+	public ResponseEntity<?> updateRating(@RequestBody @Valid UpdateRatingDTO dto) {
 		try {
 			itemService.updateRating(dto);
 			return ResponseEntity.ok().build();

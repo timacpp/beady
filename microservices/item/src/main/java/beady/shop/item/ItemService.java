@@ -52,7 +52,7 @@ public class ItemService {
 	private void reduceItemQuantityBy(Item item, Integer reduceBy) throws NotEnoughItemsException {
 		if (item.getQuantity() < reduceBy) {
 			throw new NotEnoughItemsException(String.format(
-					"Cannot reduce item quantity from %d by %d", item.getQuantity(), reduceBy));
+					"Not enough items, available: %d, requested: %d", item.getQuantity(), reduceBy));
 		}
 
 		item.setQuantity(item.getQuantity() - reduceBy);
