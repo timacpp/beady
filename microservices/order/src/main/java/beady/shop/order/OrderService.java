@@ -3,10 +3,8 @@ package beady.shop.order;
 import beady.shop.order.dto.CreateOrderDTO;
 import beady.shop.order.exception.IllegalOrderException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
