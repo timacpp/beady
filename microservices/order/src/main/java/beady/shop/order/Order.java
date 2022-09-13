@@ -1,15 +1,19 @@
 package beady.shop.order;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name="`Order`")
 public class Order {
 
 	@Id
@@ -17,15 +21,13 @@ public class Order {
 	@Column(insertable = false, updatable = false)
 	private Long id;
 
-	@Column(nullable = false)
-	private String emailAddress;
+	@Email
+	private String email;
 
-	@Column(nullable = false)
-	private String shipmentAddress;
-
-	@Column(nullable = false)
+	@NotNull
 	private Long itemId;
 
-	@Column(nullable = false)
-	private Long quantity;
+	@NotNull
+	@Min(1)
+	private Integer quantity;
 }
