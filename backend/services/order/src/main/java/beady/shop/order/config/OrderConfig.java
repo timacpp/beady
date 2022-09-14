@@ -1,4 +1,4 @@
-package beady.shop.order;
+package beady.shop.order.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
