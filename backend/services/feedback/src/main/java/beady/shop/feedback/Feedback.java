@@ -27,6 +27,6 @@ public class Feedback {
 	private Long itemId;
 
 	@NotNull
-	@Range(min = 1, max = 5)
+	@Range(min = MIN_RATING, max = MAX_RATING)
 	private Integer rating;
 }
