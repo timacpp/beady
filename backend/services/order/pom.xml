@@ -12,7 +12,7 @@
 	<artifactId>order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>order</name>
-	<description>Cart service</description>
+	<description>Order service</description>
 	<properties>
 		<java.version>18</java.version>
 	</properties>

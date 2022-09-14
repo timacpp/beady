@@ -12,7 +12,7 @@
 	<artifactId>feedback</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>feedback</name>
-	<description>Cart service</description>
+	<description>Feedback service</description>
 	<properties>
 		<java.version>18</java.version>
 	</properties>
@@ -51,6 +51,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 	</dependencies>
 
