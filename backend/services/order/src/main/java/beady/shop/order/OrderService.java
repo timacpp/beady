@@ -38,7 +38,7 @@ public class OrderService {
 
 	private void postItemUpdate(Long itemId, Integer quantity) throws HttpClientErrorException {
 		restTemplate.postForEntity(
-				"http://localhost:8000/item/reduce-quantity",
+				"http://localhost:8081/item/reduce-quantity",
 				Map.of("itemId", itemId, "reduceBy", quantity),
 				String.class
 		);
