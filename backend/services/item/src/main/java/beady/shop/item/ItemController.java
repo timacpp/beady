@@ -32,14 +32,4 @@ public class ItemController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
 		}
 	}
-
-	@PostMapping("/update-rating")
-	public ResponseEntity<?> updateRating(@RequestBody @Valid UpdateRatingDTO dto) {
-		try {
-			itemService.updateRating(dto);
-			return ResponseEntity.ok().build();
-		} catch (ItemNotFoundException exception) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-		}
-	}
 }

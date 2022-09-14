@@ -5,14 +5,20 @@ import beady.shop.item.dto.UpdateRatingDTO;
 import beady.shop.item.exception.ItemException;
 import beady.shop.item.exception.NotEnoughItemsException;
 import beady.shop.item.exception.ItemNotFoundException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
 @Service
+@EnableRabbit
 @AllArgsConstructor
 public class ItemService {
 
@@ -22,7 +28,10 @@ public class ItemService {
 		return itemRepository.findAll();
 	}
 
-	public void updateRating(UpdateRatingDTO dto) throws ItemNotFoundException {
+	@RabbitListener(queues = "queue.rating")
+	public void updateRating(Message message) throws ItemNotFoundException, IOException {
+		UpdateRatingDTO dto = new ObjectMapper().readValue(message.getBody(), UpdateRatingDTO.class);
+
 		Item item = findItemById(dto.getItemId());
 		updateItemRating(item, dto.getLatestRating(), dto.getFeedbacks());
 	}
@@ -32,8 +41,8 @@ public class ItemService {
 	}
 
 	private void updateItemRating(Item item, BigDecimal latestRating, BigDecimal feedbacks) {
-		BigDecimal newRating = item.getRating().add(latestRating)
-				.divide(feedbacks, Item.RATING_SCALE, RoundingMode.HALF_UP);
+		BigDecimal newRating = item.getRating().multiply(feedbacks).add(latestRating)
+				.divide(feedbacks.add(BigDecimal.ONE), Item.RATING_SCALE, RoundingMode.HALF_UP);
 
 		item.setRating(newRating);
 		itemRepository.save(item);
