@@ -1,9 +1,15 @@
-import { createApp } from 'vue'
+import Vue from 'vue';
+import App from './App.vue';
+import VueResource from 'vue-resource';
+import Vuetify from "vuetify";
+import VueStarRating from "vue-star-rating";
 
-import App from './App.vue'
-import router from './router'
+Vue.use(VueResource);
+Vue.use(Vuetify)
+Vue.component('star-rating', VueStarRating.default);
 
-createApp(App)
-	.use(router)
-	.mount("#app");
+new Vue({
+    vuetify: new Vuetify(),
+    render: h => h(App)
+}).$mount('#app');
 
