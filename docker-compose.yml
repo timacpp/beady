@@ -1,0 +1,80 @@
+services:
+    postgres:
+        container_name: beady-postgres
+        image: postgres
+        environment:
+            POSTGRES_USER: beady
+            POSTGRES_PASSWORD: beady
+            PGDATA: /data/postgres
+        volumes:
+            - postgres:/data/postgres
+        ports:
+            - "8888:5432"
+        networks:
+            - postgres
+        restart: unless-stopped
+    rabbitmq:
+        image: rabbitmq:3.9.11-management-alpine
+        container_name: beady-rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+    shop:
+        image: beady/shop:latest
+        container_name: shop
+        ports:
+            - "8080:8080"
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        networks:
+            - spring
+    item:
+        image: beady/item:latest
+        container_name: item
+        ports:
+            - "8081:8081"
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        networks:
+            - spring
+            - postgres
+        depends_on:
+            - postgres
+    order:
+        image: beady/order:latest
+        container_name: order
+        ports:
+            - "8082:8082"
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        networks:
+            - spring
+            - postgres
+        depends_on:
+            - postgres
+    feedback:
+        image: beady/feedback:latest
+        container_name: feedback
+        ports:
+            - "8083:8083"
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        networks:
+            - spring
+            - postgres
+        depends_on:
+            - postgres
+            - rabbitmq
+    frontend:
+        image: beady/frontend:latest
+        container_name: frontend
+        ports:
+            - "4800:4800"
+networks:
+    postgres:
+        driver: bridge
+    spring:
+        driver: bridge
+
+volumes:
+    postgres:
